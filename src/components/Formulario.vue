@@ -1,12 +1,19 @@
+<!-- eslint-disable vue/valid-v-on -->
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="box">
     <div class="columns">
       <div class="column is-8" role="form" aria-label="Formulário para criação de uma nova tarefa">
-        <input type="text" class="input" placeholder="Qual tarefa você deseja iniciar?">
+        <!-- v-model linka o valor do input ao estado de data  -->
+        <input 
+          type="text"
+          class="input" 
+          placeholder="Qual tarefa você deseja iniciar?"
+          v-model="descricao"
+        >
       </div>
       <div class="column">
-       <Temporizador />
+       <Temporizador @aoTemporizadorFinalizado="finalizarTarefa" />
       </div>
     </div>
   </div>
@@ -22,6 +29,17 @@ export default defineComponent({
   components: {
     Temporizador
   },
+  data () {
+    return {
+      descricao: ''
+    }
+  },
+  methods: {
+    finalizarTarefa(tempoDecorrido: number): void {
+      console.log('Tempo decorrido' + tempoDecorrido)
+      this.descricao = ''
+    }
+  }
 })
 </script>
 
