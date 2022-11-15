@@ -6,7 +6,9 @@
     <div class="column is-three-quarter">
       <Formulario @aoSalvarTarefa="salvarTarefa" />
       <div class="lista">
-
+        <Box v-if="listaEstaVazia">
+          Você não está muito produtivo hoje :(
+        </Box>
         <Tarefa :tarefa="tarefa" v-for="(tarefa, index) in tarefas" :key="index"/>
       </div>
     </div>
@@ -19,13 +21,15 @@ import BarraLateral from '@/components/BarraLateral.vue'
 import Formulario from './components/Formulario.vue';
 import Tarefa from '@/components/Tarefa.vue'
 import ITarefa from './interfaces/ITarefa';
+import Box from './components/Box.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
     BarraLateral,
     Formulario,
-    Tarefa
+    Tarefa,
+    Box
   },
   data () {
     return {
@@ -35,6 +39,11 @@ export default defineComponent({
   methods: {
     salvarTarefa (tarefa: ITarefa) {
       this.tarefas.push(tarefa)
+    }
+  },
+  computed: {
+    listaEstaVazia (): boolean {
+      return this.tarefas.length === 0
     }
   }
 });
