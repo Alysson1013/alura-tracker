@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/valid-v-on -->
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="box">
+  <div class="box formulario">
     <div class="columns">
       <div class="column is-8" role="form" aria-label="Formulário para criação de uma nova tarefa">
         <!-- v-model linka o valor do input ao estado de data  -->
@@ -48,5 +48,8 @@ export default defineComponent({
 </script>
 
 <style>
-
+  .formulario {
+    color: var(--texto-primario);
+    background-color: var(--bg-primario);
+  }
 </style>

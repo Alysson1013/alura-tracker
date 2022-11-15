@@ -1,9 +1,9 @@
 <template>
-  <main class="columns is-gapless is-multiline">
+  <main class="columns is-gapless is-multiline modo-escuro">
     <div class="column is-one-fifth">
       <BarraLateral />
     </div>
-    <div class="column is-three-quarter">
+    <div class="column is-three-quarter conteudo">
       <Formulario @aoSalvarTarefa="salvarTarefa" />
       <div class="lista">
         <Box v-if="listaEstaVazia">
@@ -50,7 +50,21 @@ export default defineComponent({
 </script>
 
 <style>
+main {
+  --bg-primario: #fff;
+  --texto-primario: #000;
+}
+
+main.modo-escuro {
+  --bg-primario: #2b2d42;
+  --texto-primario: #ddd;
+}
+
 .lista {
   padding: 1.25rem;
+}
+
+.conteudo {
+  background-color: var(--bg-primario);
 }
 </style>
