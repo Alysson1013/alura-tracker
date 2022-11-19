@@ -41,27 +41,28 @@
   </section>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
-import IProjeto from '@/interfaces/IProjeto'
+import { defineComponent, computed } from 'vue'
+import { useStore } from '@/store'
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Projetos",
   data() {
     return {
-      nomeDoProjeto: "",
-      projetos: [] as IProjeto[]
+      nomeDoProjeto: ""
     }
   },
   methods: {
     salvar(){
-      const projeto: IProjeto = {
-        nome: this.nomeDoProjeto,
-        id: new Date().toISOString(),
-      }
-
-      this.projetos.push(projeto)
+      this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto)
       this.nomeDoProjeto = ''
+    }
+  },
+  setup() {
+    const store = useStore()
+    return {
+      store,
+      projetos: computed(() => store.state.projetos)
     }
   }
 })
