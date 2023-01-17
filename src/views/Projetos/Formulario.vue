@@ -25,16 +25,34 @@ import { useStore } from '@/store'
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Formulario",
+  props: {
+    id: {
+      type: String
+    }
+  },
+  mounted() {
+    if (this.id) {
+      const projeto = this.store.state.projetos.find(proj => proj.id === this.id);
+      this.nomeDoProjeto = projeto?.nome || '';
+    }
+  },
   data() {
     return {
       nomeDoProjeto: ""
     }
   },
   methods: {
-    salvar(){
-      this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto)
-      this.nomeDoProjeto = ''
-      this.$router.push('/projetos')
+    salvar() {
+      if (this.id) {
+        this.store.commit('ALTERA_PROJETO', {
+          id: this.id,
+          nome: this.nomeDoProjeto,
+        })
+      } else {
+        this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto);
+        this.nomeDoProjeto = '';
+      }
+      this.$router.push('/projetos');
     }
   },
   setup() {
@@ -43,12 +61,11 @@ export default defineComponent({
       store,
       projetos: store
     }
-  }
+  },
 })
 </script>
 <style lang="css" scoped>
-  .projetos {
-    padding: 1.25rem;
-  }
-
+.projetos {
+  padding: 1.25rem;
+}
 </style>
