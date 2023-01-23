@@ -1,5 +1,5 @@
 <template>
-  <section class="projetos">
+  <section>
     <h1 class="title">
       Projetos
     </h1>
@@ -65,7 +65,5 @@ export default defineComponent({
 })
 </script>
 <style lang="css" scoped>
-.projetos {
-  padding: 1.25rem;
-}
+
 </style>

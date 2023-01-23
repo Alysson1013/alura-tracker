@@ -1,64 +1,19 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <section class="projetos">
-    <h1 class="title">
-      Projetos
-    </h1>
-    <router-link to="/projetos/novo" class="button">
-      <span class="icon is-small">
-        <i class="fas fa-plus"></i>
-      </span>
-      <span>Novo Projeto</span>
-    </router-link>
-    <table class="table is-fullwidth">
-      <thead>
-        <tr>
-          <th>
-            ID
-          </th>
-          <th>
-            Nome
-          </th>
-          <th>
-            Ações
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="projeto in projetos" :key="projeto.id">
-          <td>
-            {{ projeto.id }}
-          </td>
-          <td>
-            {{ projeto.nome }}
-          </td>
-          <td>
-            <router-link :to="`/projetos/${projeto.id}`" class="button">
-              <i class="fas fa-pencil-alt"></i>
-            </router-link>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+  <div class="projetos">
+    <router-view></router-view>
+  </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useStore } from '@/store'
+  import { defineComponent } from 'vue';
 
-export default defineComponent({
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: "Projetos",
-  setup() {
-    const store = useStore()
-    return {
-      projetos: computed(() => store.state.projetos)
-    }
-  }
-})
+  export default defineComponent({
+    // eslint-disable-next-line vue/multi-word-component-names
+    name: "Projetos"
+  })
 </script>
-<style lang="css" scoped>
-  .projetos {
-    padding: 1.25rem;
-  }
-
+<style scoped lang="css">
+.projetos {
+  padding: 1.25rem;
+}
 </style>
