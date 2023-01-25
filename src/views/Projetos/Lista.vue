@@ -51,7 +51,8 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from '@/store'
-import { EXCLUIR_PROJETO } from '@/store/tipo-mutacoes'
+import { EXCLUIR_PROJETO, NOTIFICAR } from '@/store/tipo-mutacoes'
+import { TipoNotificacao } from '@/interfaces/INotificacao'
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
@@ -59,6 +60,11 @@ export default defineComponent({
   methods: {
     excluir(id: string) {
       this.store.commit(EXCLUIR_PROJETO, id)
+      this.store.commit(NOTIFICAR, {
+        titulo: 'O projeto foi deleteado',
+        texto: 'Prontinho ;) seu projeto já está disponivel',
+        tipo: TipoNotificacao.SUCESSO
+      })
     },
   },
   setup() {
