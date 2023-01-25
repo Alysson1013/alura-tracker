@@ -1,8 +1,10 @@
 import IProjeto from "@/interfaces/IProjeto";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as VuexUseStore } from 'vuex'
-import { INotificacao, TipoNotificacao } from '@/interfaces/INotificacao';
-import { ADICIONA_PROJETO, ALTERA_PROJETO, EXCLUIR_PROJETO, NOTIFICAR } from "./tipo-mutacoes";
+import { INotificacao } from '@/interfaces/INotificacao';
+import { ADICIONA_PROJETO, ALTERA_PROJETO, DEFINIR_PROJETOS, EXCLUIR_PROJETO, NOTIFICAR } from "./tipo-mutacoes";
+import { OBTER_PROJETOS } from "./tipo-acoes";
+import http from "@/http";
 
 interface Estado {
   projetos: IProjeto[]
@@ -15,6 +17,12 @@ export const store = createStore<Estado>({
   state: {
     projetos: [],
     notificacoes: []
+  },
+  actions: {
+    [OBTER_PROJETOS]({ commit }) {
+      http.get('projetos')
+        .then(resposta => commit(DEFINIR_PROJETOS, resposta.data))
+    }
   },
   mutations: {
     [ADICIONA_PROJETO](state, nomeDoProjeto) {
@@ -31,6 +39,9 @@ export const store = createStore<Estado>({
     },
     [EXCLUIR_PROJETO](state, id: string) {
       state.projetos = state.projetos.filter(item => item.id !== id)
+    },
+    [DEFINIR_PROJETOS](state, projetos: IProjeto[]) {
+      state.projetos = projetos
     },
     [NOTIFICAR](state, novaNotificacao: INotificacao) {
       novaNotificacao.id = new Date().getTime();

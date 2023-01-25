@@ -54,6 +54,7 @@ import { useStore } from '@/store'
 import { EXCLUIR_PROJETO, NOTIFICAR } from '@/store/tipo-mutacoes'
 import { TipoNotificacao } from '@/interfaces/INotificacao'
 import { notificacaoMixin } from '@/mixins/notificar'
+import { OBTER_PROJETOS } from '@/store/tipo-acoes'
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
@@ -69,6 +70,8 @@ export default defineComponent({
   },
   setup() {
     const store = useStore()
+    store.dispatch(OBTER_PROJETOS)
+
     return {
       projetos: computed(() => store.state.projetos),
       store
