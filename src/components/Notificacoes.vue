@@ -44,7 +44,8 @@ export default defineComponent({
 <style scoped>
   .notificacoes {
     position: absolute;
-    right: 0;
+    right: 5px;
+    top: 5px;
     width: 300px;
     padding: 0;
 

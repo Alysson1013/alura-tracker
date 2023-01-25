@@ -57,7 +57,7 @@ export default defineComponent({
       this.store.commit(NOTIFICAR, {
         titulo: 'Novo projeto foi salvo',
         texto: 'Prontinho ;) seu projeto já está disponivel',
-        tipoNotificacao: TipoNotificacao.SUCESSO
+        tipo: TipoNotificacao.SUCESSO
       })
       this.$router.push('/projetos');
     }

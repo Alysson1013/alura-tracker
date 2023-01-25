@@ -34,7 +34,7 @@ export const store = createStore<Estado>({
     },
     [NOTIFICAR](state, novaNotificacao: INotificacao) {
       novaNotificacao.id = new Date().getTime();
-      state.notificacoes.push;
+      state.notificacoes.push(novaNotificacao);
     },
   }
 })
