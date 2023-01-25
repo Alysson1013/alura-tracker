@@ -59,8 +59,8 @@ export default defineComponent({
         this.nomeDoProjeto = '';
       }
 
-      this.notificar(TipoNotificacao.SUCESSO, 'Excelente', 'O Projeto foi cadastrado com sucesso!');
       this.$router.push('/projetos');
+      this.notificar(TipoNotificacao.SUCESSO, 'Excelente', 'O Projeto foi cadastrado com sucesso!');
     }
   },
   setup() {

@@ -64,7 +64,7 @@ export default defineComponent({
   methods: {
     excluir(id: string) {
       this.store.commit(EXCLUIR_PROJETO, id)
-      this.notificar(TipoNotificacao.SUCESSO, 'Excelente', 'O Projeto foi cadastrado com sucesso!');
+      this.notificar(TipoNotificacao.SUCESSO, 'Excelente', 'O Projeto foi deleteado com sucesso!');
     },
   },
   setup() {
