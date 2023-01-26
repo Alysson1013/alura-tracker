@@ -3,7 +3,7 @@ import { InjectionKey } from "vue";
 import { createStore, Store, useStore as VuexUseStore } from 'vuex'
 import { INotificacao } from '@/interfaces/INotificacao';
 import { ADICIONA_PROJETO, ALTERA_PROJETO, DEFINIR_PROJETOS, EXCLUIR_PROJETO, NOTIFICAR } from "./tipo-mutacoes";
-import { CADASTRAR_PROJETO, OBTER_PROJETOS } from "./tipo-acoes";
+import { ALTERAR_PROJETO, CADASTRAR_PROJETO, OBTER_PROJETOS } from "./tipo-acoes";
 import http from "@/http";
 
 interface Estado {
@@ -27,6 +27,9 @@ export const store = createStore<Estado>({
       return http.post("projetos", {
         nome: nomeDoProjeto
       })
+    },
+    [ALTERAR_PROJETO](contexto, projeto: IProjeto){
+      return http.put(`projetos/${projeto.id}`, projeto)
     }
   },
   mutations: {
