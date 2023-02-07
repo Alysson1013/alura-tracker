@@ -9,7 +9,7 @@
     {
       "id": 1,
       "duracaoEmSegundos": 120,
-      "descricao": "Configuração do ambiente",
+      "descricao": "Configuração do ambiente1",
       "projeto": {
         "nome": "Teste 1",
         "id": 2
@@ -26,7 +26,7 @@
     },
     {
       "duracaoEmSegundos": 3,
-      "descricao": "teste",
+      "descricao": "teste1",
       "projeto": {
         "nome": "Teste 1",
         "id": 2

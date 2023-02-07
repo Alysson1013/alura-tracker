@@ -3,7 +3,7 @@ import { InjectionKey } from "vue";
 import { createStore, Store, useStore as VuexUseStore } from 'vuex'
 import { INotificacao } from '@/interfaces/INotificacao';
 import { ADICIONA_PROJETO, ADICIONA_TAREFA, ALTERA_PROJETO, DEFINIR_PROJETOS, DEFINIR_TAREFAS, EXCLUIR_PROJETO, NOTIFICAR } from "./tipo-mutacoes";
-import { ALTERAR_PROJETO, CADASTRAR_PROJETO, OBTER_PROJETOS, OBTER_TAREFAS, REMOVER_PROJETO, CADASTRAR_TAREFAS } from "./tipo-acoes";
+import { ALTERAR_PROJETO, CADASTRAR_PROJETO, OBTER_PROJETOS, OBTER_TAREFAS, REMOVER_PROJETO, CADASTRAR_TAREFAS, ALTERAR_TAREFA } from "./tipo-acoes";
 import http from "@/http";
 import ITarefa from "@/interfaces/ITarefa";
 
@@ -44,6 +44,10 @@ export const store = createStore<Estado>({
     [CADASTRAR_TAREFAS]({ commit }, tarefa: ITarefa){
       return http.post("tarefas", tarefa)
         .then(resposta => commit(ADICIONA_TAREFA, resposta.data))
+    },
+    [ALTERAR_TAREFA]({ commit }, tarefa: ITarefa){
+      return http.put(`tarefas/${tarefa.id}`, tarefa)
+       .then(() => commit(ALTERAR_TAREFA, tarefa))
     }
   },
   mutations: {
@@ -78,7 +82,11 @@ export const store = createStore<Estado>({
     },
     [ADICIONA_TAREFA](state, tarefa: ITarefa){
       state.tarefas.push(tarefa)
-    }
+    },
+    [ALTERAR_TAREFA](state, tarefa: ITarefa) {
+      const index = state.tarefas.findIndex(t => tarefa.id === t.id);
+      state.tarefas[index] = tarefa;
+    },
   }
 })
 
