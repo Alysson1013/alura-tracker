@@ -2,8 +2,8 @@ import IProjeto from "@/interfaces/IProjeto";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as VuexUseStore } from 'vuex'
 import { INotificacao } from '@/interfaces/INotificacao';
-import { ADICIONA_PROJETO, ALTERA_PROJETO, DEFINIR_PROJETOS, DEFINIR_TAREFAS, EXCLUIR_PROJETO, NOTIFICAR } from "./tipo-mutacoes";
-import { ALTERAR_PROJETO, CADASTRAR_PROJETO, OBTER_PROJETOS, OBTER_TAREFAS, REMOVER_PROJETO } from "./tipo-acoes";
+import { ADICIONA_PROJETO, ADICIONA_TAREFA, ALTERA_PROJETO, DEFINIR_PROJETOS, DEFINIR_TAREFAS, EXCLUIR_PROJETO, NOTIFICAR } from "./tipo-mutacoes";
+import { ALTERAR_PROJETO, CADASTRAR_PROJETO, OBTER_PROJETOS, OBTER_TAREFAS, REMOVER_PROJETO, CADASTRAR_TAREFAS } from "./tipo-acoes";
 import http from "@/http";
 import ITarefa from "@/interfaces/ITarefa";
 
@@ -41,6 +41,10 @@ export const store = createStore<Estado>({
       http.get('tarefas')
         .then(resposta => commit(DEFINIR_TAREFAS, resposta.data))
     },
+    [CADASTRAR_TAREFAS]({ commit }, tarefa: ITarefa){
+      return http.post("tarefas", tarefa)
+        .then(resposta => commit(ADICIONA_TAREFA, resposta.data))
+    }
   },
   mutations: {
     [ADICIONA_PROJETO](state, nomeDoProjeto) {
@@ -71,6 +75,9 @@ export const store = createStore<Estado>({
     },
     [DEFINIR_TAREFAS](state, tarefas: ITarefa[]){
       state.tarefas = tarefas;
+    },
+    [ADICIONA_TAREFA](state, tarefa: ITarefa){
+      state.tarefas.push(tarefa)
     }
   }
 })

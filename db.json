@@ -11,9 +11,27 @@
       "duracaoEmSegundos": 120,
       "descricao": "Configuração do ambiente",
       "projeto": {
-          "nome": "Teste 1",
-          "id": 2
+        "nome": "Teste 1",
+        "id": 2
       }
+    },
+    {
+      "duracaoEmSegundos": 0,
+      "descricao": "refatoração",
+      "projeto": {
+        "nome": "Teste 1",
+        "id": 2
+      },
+      "id": 2
+    },
+    {
+      "duracaoEmSegundos": 3,
+      "descricao": "teste",
+      "projeto": {
+        "nome": "Teste 1",
+        "id": 2
+      },
+      "id": 3
     }
   ]
 }
