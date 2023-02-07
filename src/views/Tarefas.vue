@@ -5,15 +5,20 @@
       Você não está muito produtivo hoje :(
     </Box>
     <Tarefa :tarefa="tarefa" v-for="(tarefa, index) in tarefas" :key="index" @ao-tarefa-clicada="selecionarTarefa" />
-    <div class="modal" :class="{ 'is-active': tarefaSelecionada }">
+    <div class="modal" :class="{ 'is-active': tarefaSelecionada }" v-if="tarefaSelecionada">
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Editando uma tarefa</p>
-          <button  @click="fecharModal" class="delete" aria-label="close"></button>
+          <button @click="fecharModal" class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-          <!-- Content ... -->
+          <div class="field">
+            <label for="nomeDoProjeto" class="label">
+              Descrição do Projeto
+            </label>
+            <input type="text" class="input" v-model="tarefaSelecionada.descricao" id="nomeDoProjeto">
+          </div>
         </section>
         <footer class="modal-card-foot">
           <button class="button is-success">Salvar alterações</button>
@@ -40,7 +45,7 @@ export default defineComponent({
     Tarefa,
     Box
   },
-  data () {
+  data() {
     return {
       tarefaSelecionada: null as ITarefa | null
     }
@@ -52,7 +57,7 @@ export default defineComponent({
     selecionarTarefa(tarefa: ITarefa) {
       this.tarefaSelecionada = tarefa
     },
-    fecharModal(){
+    fecharModal() {
       this.tarefaSelecionada = null
     }
   },

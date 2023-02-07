@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template lang="">
   <Box>
-    <div class="columns" @click="tarefaClicada">
+    <div class="columns clicavel" @click="tarefaClicada">
       <div class="column is-4">
         {{ tarefa.descricao || 'Tarefa sem descrição'  }}
       </div>
@@ -42,4 +42,7 @@ export default defineComponent({
 })
 </script>
 <style scoped>
+  .clicavel {
+    cursor: pointer;
+  }
 </style>
