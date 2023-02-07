@@ -2,13 +2,15 @@ import IProjeto from "@/interfaces/IProjeto";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as VuexUseStore } from 'vuex'
 import { INotificacao } from '@/interfaces/INotificacao';
-import { ADICIONA_PROJETO, ALTERA_PROJETO, DEFINIR_PROJETOS, EXCLUIR_PROJETO, NOTIFICAR } from "./tipo-mutacoes";
-import { ALTERAR_PROJETO, CADASTRAR_PROJETO, OBTER_PROJETOS, REMOVER_PROJETO } from "./tipo-acoes";
+import { ADICIONA_PROJETO, ALTERA_PROJETO, DEFINIR_PROJETOS, DEFINIR_TAREFAS, EXCLUIR_PROJETO, NOTIFICAR } from "./tipo-mutacoes";
+import { ALTERAR_PROJETO, CADASTRAR_PROJETO, OBTER_PROJETOS, OBTER_TAREFAS, REMOVER_PROJETO } from "./tipo-acoes";
 import http from "@/http";
+import ITarefa from "@/interfaces/ITarefa";
 
 interface Estado {
-  projetos: IProjeto[]
-  notificacoes: INotificacao[]
+  projetos: IProjeto[];
+  notificacoes: INotificacao[];
+  tarefas: ITarefa[];
 }
 
 export const key: InjectionKey<Store<Estado>> = Symbol()
@@ -16,7 +18,8 @@ export const key: InjectionKey<Store<Estado>> = Symbol()
 export const store = createStore<Estado>({
   state: {
     projetos: [],
-    notificacoes: []
+    notificacoes: [],
+    tarefas: []
   },
   actions: {
     [OBTER_PROJETOS]({ commit }) {
@@ -33,7 +36,11 @@ export const store = createStore<Estado>({
     },
     [REMOVER_PROJETO](context, id: string){
       return http.delete(`projetos/${id}`)
-    }
+    },
+    [OBTER_TAREFAS]({ commit }) {
+      http.get('tarefas')
+        .then(resposta => commit(DEFINIR_TAREFAS, resposta.data))
+    },
   },
   mutations: {
     [ADICIONA_PROJETO](state, nomeDoProjeto) {
@@ -62,6 +69,9 @@ export const store = createStore<Estado>({
         state.notificacoes = state.notificacoes.filter(item => item.id != novaNotificacao.id);
       }, 3000)
     },
+    [DEFINIR_TAREFAS](state, tarefas: ITarefa[]){
+      state.tarefas = tarefas;
+    }
   }
 })
 

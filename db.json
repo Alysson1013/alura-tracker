@@ -1,8 +1,19 @@
 {
   "projetos": [
     {
+      "nome": "Teste 1",
+      "id": 2
+    }
+  ],
+  "tarefas": [
+    {
       "id": 1,
-      "nome": "Alura Tracker2"
+      "duracaoEmSegundos": 120,
+      "descricao": "Configuração do ambiente",
+      "projeto": {
+          "nome": "Teste 1",
+          "id": 2
+      }
     }
   ]
 }

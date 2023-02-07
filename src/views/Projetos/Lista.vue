@@ -51,7 +51,6 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from '@/store'
-import { EXCLUIR_PROJETO, NOTIFICAR } from '@/store/tipo-mutacoes'
 import { TipoNotificacao } from '@/interfaces/INotificacao'
 import { notificacaoMixin } from '@/mixins/notificar'
 import { OBTER_PROJETOS, REMOVER_PROJETO } from '@/store/tipo-acoes'
