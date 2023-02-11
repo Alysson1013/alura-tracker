@@ -25,6 +25,7 @@ import { ALTERAR_PROJETO } from '@/store/tipo-acoes';
 import { TipoNotificacao } from '@/interfaces/INotificacao';
 import useNotificador from '@/hooks/notificador';
 import { CADASTRAR_PROJETO } from '@/store/tipo-acoes';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
@@ -34,26 +35,8 @@ export default defineComponent({
       type: String
     }
   },
-  methods: {
-    salvar() {
-      if (this.id) {
-        this.store.dispatch(ALTERAR_PROJETO, {
-          id: this.id,
-          nome: this.nomeDoProjeto,
-        })
-          .then(() => this.lidarComSucesso())
-      } else {
-        this.store.dispatch(CADASTRAR_PROJETO, this.nomeDoProjeto)
-          .then(() => this.lidarComSucesso())
-      }
-    },
-    lidarComSucesso() {
-      this.nomeDoProjeto = '';
-      this.$router.push('/projetos');
-      this.notificar(TipoNotificacao.SUCESSO, 'Excelente', 'O Projeto foi cadastrado com sucesso!');
-    }
-  },
   setup(props) {
+    const router = useRouter()
     const store = useStore();
 
     const { notificar } = useNotificador();
@@ -65,10 +48,28 @@ export default defineComponent({
       nomeDoProjeto.value = projeto?.nome || ''
     }
 
+    const lidarComSucesso = () => {
+      nomeDoProjeto.value = '';
+      router.push('/projetos');
+      notificar(TipoNotificacao.SUCESSO, 'Excelente', 'O Projeto foi cadastrado com sucesso!');
+    }
+
+    const salvar = () => {
+      if (props.id) {
+        store.dispatch(ALTERAR_PROJETO, {
+          id: props.id,
+          nome: nomeDoProjeto.value,
+        })
+          .then(() => lidarComSucesso())
+      } else {
+        store.dispatch(CADASTRAR_PROJETO, nomeDoProjeto.value)
+          .then(() => lidarComSucesso())
+      }
+    }
+
     return {
-      store,
-      notificar,
-      nomeDoProjeto
+      nomeDoProjeto,
+      salvar
     }
   },
 })
