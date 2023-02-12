@@ -57,7 +57,8 @@ export default defineComponent({
     return {
       projetos: computed(() => store.state.projeto.projetos),
       descricao,
-      idProjeto
+      idProjeto,
+      finalizarTarefa
     }
   }
 })
