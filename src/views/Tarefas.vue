@@ -4,6 +4,14 @@
     <Box v-if="listaEstaVazia">
       Você não está muito produtivo hoje :(
     </Box>
+    <div class="field">
+      <p class="control has-icons-left has-icons-right">
+        <input class="input" type="text" placeholder="Digite para filtrar">
+        <span class="icon is-small is-left">
+          <i class="fas fa-search"></i>
+        </span>
+      </p>
+    </div>
     <Tarefa :tarefa="tarefa" v-for="(tarefa, index) in tarefas" :key="index" @ao-tarefa-clicada="selecionarTarefa" />
     <div class="modal" :class="{ 'is-active': tarefaSelecionada }" v-if="tarefaSelecionada">
       <div class="modal-background"></div>
@@ -60,7 +68,7 @@ export default defineComponent({
     fecharModal() {
       this.tarefaSelecionada = null
     },
-    alterarTarefa(){
+    alterarTarefa() {
       this.store.dispatch(ALTERAR_TAREFA, this.tarefaSelecionada)
       this.fecharModal()
     }
